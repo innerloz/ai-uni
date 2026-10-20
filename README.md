@@ -1,6 +1,6 @@
 # AI Uni: from PPO to GRPO
 
-An interactive lesson based on three supplied lecture slides, with maths foundations, policy-gradient sampling, TRPO's KL budget, PPO clipping, a complete training walkthrough, GRPO group-relative advantages, and a downloadable training starter.
+An interactive lesson based on five supplied lecture slides, with maths foundations, policy-gradient sampling, TRPO's KL budget, PPO clipping, a complete training walkthrough, GRPO group-relative advantages, a token-mask/loss walkthrough, and downloadable training and PyTorch-loss starters.
 
 All project source, copied slides, checks, deployment configuration, and local temporary files live in this folder.
 
@@ -39,5 +39,6 @@ The Sites project identity is recorded in `.openai/hosting.json`. Publish this s
 - Shao et al., *DeepSeekMath* (2024), introducing GRPO.
 - DeepSeek-AI, *DeepSeek-R1* (2025).
 - Hugging Face TRL versioned documentation for the practical starter.
+- McGill-NLP's nano-aha-moment source for the two implementation slides. Its direct policy-gradient loss is distinguished from the clipped multi-pass objective.
 
 The lesson links directly to primary sources, distinguishes old-policy snapshots from reference policies, and explains the limits of each simplified demonstration.

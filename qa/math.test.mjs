@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { ppoScore, bernoulliKL, sampleGradient } from '../dist/math.mjs';
 import { grpoGroupStats } from '../dist/grpo.js';
+import { nanoExampleStats } from '../dist/nano.js';
 
 const close = (actual, expected, tolerance = 1e-10) => assert.ok(Math.abs(actual - expected) < tolerance, `${actual} should be ${expected}`);
 
@@ -64,4 +65,17 @@ test('GRPO equal rewards are finite and zero; shifting reward origin preserves a
   const b = grpoGroupStats([12, 14, 16, 18]);
   a.advantages.forEach((value, i) => close(value, b.advantages[i]));
   close(a.advantages.reduce((sum, value) => sum + value, 0), 0);
+});
+
+test('the tiny loss uses six valid tokens and a nonnegative, linearly weighted reference penalty', () => {
+  const zero = nanoExampleStats(0);
+  const one = nanoExampleStats(1);
+  close(zero.mean, 1 / 3);
+  close(zero.std, Math.sqrt(2 / 9));
+  assert.equal(zero.validTokens, 6);
+  close(zero.advantages.reduce((sum, a) => sum + a, 0), 0);
+  close(zero.batchLoss, -0.2731602712, 1e-9);
+  const klMean = one.tokenTerms.flat().reduce((sum, term) => { assert.ok(term.klSample >= 0); return sum + term.klSample; }, 0) / 6;
+  close(one.batchLoss - zero.batchLoss, klMean);
+  close(nanoExampleStats(0.5).batchLoss, (zero.batchLoss + one.batchLoss) / 2);
 });

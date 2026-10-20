@@ -3,6 +3,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { initLoop } from '../dist/loop.js';
 import { initGRPO } from '../dist/grpo.js';
+import { initNano } from '../dist/nano.js';
 
 class Element {
   constructor(attrs = {}) {
@@ -79,4 +80,22 @@ test('GRPO reward inputs and equal/binary presets update all relative scores', (
   assert.equal(get('advantage-3').textContent, '+1.732');
   get('reward-0').emit('input', '2');
   assert.equal(get('mean').textContent, '0.750');
+});
+
+test('the token walkthrough switches responses and reference weight without changing reward advantages', () => {
+  const mount = new Element();
+  globalThis.document = { querySelector: () => mount };
+  initNano();
+  const get = (suffix) => mount.querySelector(`#nano-${suffix}`);
+  assert.equal(get('mean').textContent, '0.3333');
+  assert.ok(get('mask-rows').innerHTML.includes('−100'));
+  assert.ok(get('loss-caption').textContent.includes('Answer C'));
+  const initialAdvantage = get('answer-advantage-2').textContent;
+  const initialLoss = get('batch-loss').textContent;
+  get('beta').emit('input', '1');
+  assert.equal(get('beta-value').textContent, '1.00');
+  assert.notEqual(get('batch-loss').textContent, initialLoss);
+  assert.equal(get('answer-advantage-2').textContent, initialAdvantage);
+  mount.querySelectorAll('[data-nano-answer]')[0].emit('click');
+  assert.ok(get('loss-caption').textContent.includes('Answer A'));
 });

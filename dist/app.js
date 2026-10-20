@@ -2,6 +2,7 @@ import { ppoScore, bernoulliKL, sampleGradient } from './math.mjs';
 import { initLoop } from './loop.js';
 import { initGRPO } from './grpo.js';
 import { initPractice } from './practice.js';
+import { initNano } from './nano.js';
 
 const $ = (id) => document.getElementById(id);
 const pct = (x) => `${Math.round(x * 100)}%`;
@@ -151,6 +152,7 @@ updatePPO();
 initLoop();
 initGRPO();
 initPractice();
+initNano();
 
 const questions = [
   { q: 'A good action has A = +2. Its ratio rises from 1.2 to 1.5 with ε = 0.2. What happens to its PPO score?', a: ['It rises from 2.4 to 3.0.', 'It stays at 2.4.', 'The update becomes impossible.'], correct: 1, why: 'min(1.5 × 2, 1.2 × 2) = 2.4. The incentive is flat beyond 1.2; the ratio itself can still exceed that value.' },
