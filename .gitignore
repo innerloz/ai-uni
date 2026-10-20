@@ -1,0 +1,11 @@
+.runtime/
+qa/screenshots/
+site-deploy.tar.gz
+.venv/
+.hf-cache/
+.cache/
+.tmp/
+grpo-output/
+grpo-adapter/
+grpo-metrics.json
+__pycache__/
