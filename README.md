@@ -2,6 +2,8 @@
 
 An interactive lesson based on five supplied lecture slides, with maths foundations, policy-gradient sampling, TRPO's KL budget, PPO clipping, a complete training walkthrough, GRPO group-relative advantages, a token-mask/loss walkthrough, and downloadable training and PyTorch-loss starters.
 
+**Interactive lesson:** [Open on GitHub Pages](https://innerloz.github.io/ai-uni/) · [Existing Sites publication](https://ai-uni-ppo-lab.lorenzuberger.chatgpt.site/)
+
 All project source, copied slides, checks, deployment configuration, and local temporary files live in this folder.
 
 ## Run the lesson locally
@@ -28,6 +30,14 @@ The installed Node executable in this environment is `/home/lorenz/.cache/codex-
 Calculators are teaching examples. The downloadable training script requires its documented ML environment and a compatible GPU; no model training was run as part of authoring this lesson. Browser inspection depends on browser tooling being available.
 
 ## Hosting
+
+### GitHub Pages
+
+The `.github/workflows/pages.yml` workflow publishes the existing `dist/` directory on every push to `main`. It does not install ML libraries or run model training. The lesson uses relative asset paths, so it also works under a GitHub Pages project path.
+
+The repository is [innerloz/ai-uni](https://github.com/innerloz/ai-uni). After a successful deployment, the interactive lesson is available through GitHub Pages; its URL is shown under **Settings → Pages** and in the workflow's `github-pages` environment. GitHub Pages is configured to deploy from **GitHub Actions**.
+
+### Existing Sites publication
 
 The Sites project identity is recorded in `.openai/hosting.json`. Publish this same project on updates rather than creating another one. Its configured site origin is https://ai-uni-ppo-lab.lorenzuberger.chatgpt.site . Deployment success and access must be confirmed by the hosting tools before claiming publication.
 
